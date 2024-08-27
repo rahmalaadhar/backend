@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 // Créer une instance d'article.
 const Article = require('../Models/article');
+const { verifyToken } = require('../Middleware/verif-token');
 // afficher la liste des articles.
 router.get('/', async (req, res,) => {
     try {
@@ -63,7 +64,7 @@ router.delete('/:articleId', async (req, res) => {
 });
 //code et formule de la pagination 
 
-router.get('/art/pagination', async(req, res) => {
+router.get('/art/pagination',verifyToken, async(req, res) => {
     //filtre pour le bouton search
     const filtre = req.query.filtre || "";
     const page = parseInt(req.query.page);
